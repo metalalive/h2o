@@ -391,6 +391,7 @@ void close_connection_now(h2o_http2_conn_t *conn)
     h2o_hpack_dispose_header_table(&conn->_output_header_table);
     assert(h2o_linklist_is_empty(&conn->_pending_reqs));
     h2o_timer_unlink(&conn->_timeout_entry);
+    h2o_timer_unlink(&conn->_write.timeout_entry);
 
     if (h2o_timer_is_linked(&conn->_graceful_shutdown_timeout))
         h2o_timer_unlink(&conn->_graceful_shutdown_timeout);
